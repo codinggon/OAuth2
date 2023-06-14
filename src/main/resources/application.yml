@@ -1,25 +1,80 @@
+server:
+  port: 8081
+#
 spring:
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/gonlog
-    username: root
-    password: 1234
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: oauth2-client-app
+            client-secret: HI5FpTFzIskYyj9FI132xy4ELz426RyE
+            client-name: oauth2-client-app
+            authorization-grant-type: authorization_code
+            scope: openid, profile
+            client-authentication-method: client_secret_basic
+            redirect-uri: http://localhost:8081/login/oauth2/code/keycloak
+            provider: keycloak
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
+          keycloakWithPKCE:
+            client-id: oauth2-client-app2
+            client-secret: GEH8P9Vq1rNh7i4toYs6J9xVdx3U8Wqg
+            client-name: oauth2-client-app2
+            authorization-grant-type: authorization_code
+            scope: openid, profile
+            client-authentication-method: none
+            redirect-uri: http://localhost:8081/login/oauth2/code/keycloak
+            provider: keycloak
 
-  data:
-    web:
-      pageable:
-        one-indexed-parameters=true: true
+          keycloak2:
+            client-id: oauth2-client-app3
+            client-secret: HI5FpTFzIskYyj9FI132xy4ELz426RyE
+            client-name: oauth2-client-app3
+            authorization-grant-type: implicit
+            scope: openid, profile
+            client-authentication-method: none
+            redirect-uri: http://localhost:8081/home
+            provider: keycloak
 
-logging:
-  level:
-    org.hibernate.sql : DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder : TRACE
+
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/auth
+            token-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/token
+            issuer-uri: http://localhost:8080/realms/oauth2
+            user-info-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
+
+
+#  datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://localhost:3306/gonlog
+#    username: root
+#    password: 1234
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    properties:
+#      hibernate:
+#        format_sql: true
+#
+#  data:
+#    web:
+#      pageable:
+#        one-indexed-parameters=true: true
+#
+#logging:
+#  level:
+#    org.hibernate.sql : DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder : TRACE
+
+
+
+
+
+
+
 
 
